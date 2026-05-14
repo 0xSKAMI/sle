@@ -7,14 +7,14 @@
 #==========================================
 
 CC=gcc
-CFLAGS=-O -Wall
+CFLAGS=-O -Wall -g
 
-all: sl
+all: sle
 
-sl: sl.c sl.h
-	$(CC) $(CFLAGS) -o sl sl.c -lncurses
+sle: sle.c sle.h
+	$(CC) $(CFLAGS) -o sle sle.c -lncurses
 
 clean:
-	rm -f sl
+	rm -f sle
 
 distclean: clean

@@ -252,14 +252,22 @@ int add_FE10(int x) {
        {FE101, FE102, FE103, FE104, FE105, FE106, FE107, FE108,
 	FE1012}};
 
-  int y, i = 0;
+  int y, i, dy = 0;
 
   if (x < - FE10LENGTH) return ERR;
-  
   y = LINES / 2 - 5;
+
+  if (FLY == 1) {
+    y = (x / 7) + LINES - (COLS / 7) - FE10HEIGHT;
+  }
 
   for (i = 0; i <= FE10HEIGHT; ++i) {
     my_mvaddstr(y + i, x, FE10H[(FE10LENGTH + x) % FE10PATTERNS][i]);
+  }
+
+  if (ACCIDENT == 1) {
+    add_man(y + 3, x + 4);
+    add_man(y + 3, x + 41);
   }
 
   return OK;

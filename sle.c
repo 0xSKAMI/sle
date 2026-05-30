@@ -248,9 +248,9 @@ int add_C51(int x)
 int add_FE10(int x) {
   static char *FE10H[FE10PATTERNS][FE10HEIGHT + 1]
     = {{FE101, FE102, FE103, FE104, FE105, FE106, FE107, FE108,
-	  FE1011},
+	  FE1011, FE10DEL},
        {FE101, FE102, FE103, FE104, FE105, FE106, FE107, FE108,
-	FE1012}};
+	FE1012, FE10DEL}};
 
   int y, i, dy = 0;
 

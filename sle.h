@@ -150,7 +150,7 @@
 #define C51WH14 "\\_/         \\_/  \\____/  \\____/  \\____/      \\_/       "
 
 
-#define FE10HEIGHT 8
+#define FE10HEIGHT 9
 #define FE10LENGTH 46
 #define FE10PATTERNS 2
 
@@ -165,6 +165,8 @@
 #define FE107 "|  FE10-692|  _____  ||  _____  |           ||  "
 #define FE108 "|__________|_|_____|_||_|_____|_|__________||   "
 
-#define FE1011 "      _/O-O-O\______________/O-O-O\_           "
+#define FE1011 "      _/O-O-O\______________/O-O-O\_            "
 
-#define FE1012 "      _\O-O-O/______________\O-O-O/_           "
+#define FE1012 "      _\O-O-O/______________\O-O-O/_            "
+
+#define FE10DEL "                                               "

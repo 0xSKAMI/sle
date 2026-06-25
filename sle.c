@@ -41,6 +41,9 @@
 #include <curses.h>
 #include <signal.h>
 #include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "sle.h"
 
 void add_smoke(int y, int x);
@@ -57,6 +60,8 @@ int LOGO      = 0;
 int FLY       = 0;
 int C51       = 0;
 int FE10      = 0;
+int CHANGE    = 0;
+int CHANGEF   = 0;
 
 int my_mvaddstr(int y, int x, char *str)
 {
@@ -78,6 +83,20 @@ void option(char *str)
     case 'l': LOGO     = 1; break;
     case 'c': C51      = 1; break;
     case 'g': FE10     = 1; break;
+    case 't':
+      char number[32];
+      for(int i = 0; i < strlen(str) - 1; i++){
+	number[i] = str[i + 1];
+      }
+      CHANGE = atoi(number);
+      break;
+    case 'd':
+      char numberf[32];
+      for(int i = 0; i < strlen(str) - 1; i++){
+	numberf[i] = str[i + 1];
+      }
+      CHANGEF = atoi(numberf);
+      break;
     default:                break;
     }
   }
@@ -86,12 +105,15 @@ void option(char *str)
 int main(int argc, char *argv[])
 {
   int x, i;
-
+   
   for (i = 1; i < argc; ++i) {
     if (*argv[i] == '-') {
       option(argv[i] + 1);
     }
   }
+
+  printf("%d", CHANGEF);
+  
   initscr();
   //  signal(SIGINT, SIG_IGN);
   noecho();
@@ -196,6 +218,9 @@ int add_D51(int x)
   for (i = 0; i <= D51HEIGHT; ++i) {
     my_mvaddstr(y + i, x, d51[(D51LENGTH + x) % D51PATTERNS][i]);
     my_mvaddstr(y + i + dy, x + 53, coal[i]);
+    for(int callNumber = 0; callNumber < CHANGE; callNumber++) {
+      my_mvaddstr(y + i + dy, x + 53 + 29 * callNumber, coal[i]);
+    }
   }
   if (ACCIDENT == 1) {
     add_man(y + 2, x + 43);
@@ -236,6 +261,9 @@ int add_C51(int x)
   for (i = 0; i <= C51HEIGHT; ++i) {
     my_mvaddstr(y + i, x, c51[(C51LENGTH + x) % C51PATTERNS][i]);
     my_mvaddstr(y + i + dy, x + 55, coal[i]);
+    for(int callNumber = 0; callNumber < CHANGE; callNumber++) {
+      my_mvaddstr(y + i + dy, x + 55 + 29 * callNumber, coal[i]);
+    }
   }
   if (ACCIDENT == 1) {
     add_man(y + 3, x + 45);
@@ -251,6 +279,9 @@ int add_FE10(int x) {
 	  FE1011, FE10DEL},
        {FE101, FE102, FE103, FE104, FE105, FE106, FE107, FE108,
 	FE1012, FE10DEL}};
+  static char *coal[D51HEIGHT + 1]
+    = {COAL01, COAL02, COAL03, COAL04, COAL05,
+       COAL06, COAL07, COAL08, COAL09, COAL10, COALDEL};
 
   int y, i, dy = 0;
 
@@ -263,6 +294,7 @@ int add_FE10(int x) {
 
   for (i = 0; i <= FE10HEIGHT; ++i) {
     my_mvaddstr(y + i, x, FE10H[(FE10LENGTH + x) % FE10PATTERNS][i]);
+    my_mvaddstr(y + i + dy - 1, x + 46, coal[i]);
   }
 
   if (ACCIDENT == 1) {
